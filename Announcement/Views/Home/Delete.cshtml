@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Delete announcement";
+}
+
+@model Announcement
+<section class="content-section">
+    <form method="post" asp-controller="Home" asp-action="Delete">
+
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Title" />
+        <input type="hidden" asp-for="Description" />
+        <input type="hidden" asp-for="AddDate" />
+        <input type="hidden" asp-for="EditDate" />
+
+        <div class="title-wrapper">           
+            <h3>@Model.Title</h3>
+            <p>@Model.AddDate</p>
+        </div>
+
+        <div class="desc-wrapper">
+            <p>@Model.Description</p>
+        </div>
+
+        <div class="action-confirm">
+            <h5>Sure, you want to delete announcement?</h5>
+            <button class="confirm-button" type="submit">Yes</button>
+            <a asp-controller="Home" asp-action="Main">No</a>
+        </div>
+
+    </form>
+</section>

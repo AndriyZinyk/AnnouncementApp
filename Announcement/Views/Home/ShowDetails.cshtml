@@ -1,0 +1,103 @@
+﻿@{
+    ViewData["Title"] = "Announcement details";
+}
+
+@model Announcement
+
+<section class="content-section">
+    <form method="post" asp-controller="Home" asp-action="Delete">
+
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Title" />
+        <input type="hidden" asp-for="Description" />
+        <input type="hidden" asp-for="AddDate" />
+        <input type="hidden" asp-for="EditDate" />
+
+        <div class="title-wrapper">
+            <a asp-controller="Home" asp-action="Main">
+                <svg xmlns="http://www.w3.org/2000/svg" height="32px" width="32px" viewBox="0 0 448 512">
+                    <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
+                </svg>
+            </a>
+            <h3>@Model.Title</h3>
+            <p>@Model.AddDate</p>
+        </div>
+
+        <div class ="desc-wrapper">
+        <p>@Model.Description</p>
+        </div>
+
+    </form>
+
+    <div class="section-header-wrapper">
+        <h6>Top 3 similar</h6>        
+    </div>
+
+    <table class="table table-hover">
+
+        <thead>
+            <tr>
+                <th class="column-header table-cell">Title</th>
+                <th class="column-header table-cell">Description</th>
+                <th class="column-header table-cell">Added</th>                
+            </tr>
+        </thead>
+
+        <tbody>
+            @{
+                int count = 0;
+                @foreach (var item in AnnouncementDB.AnnouncementList)
+                {
+                    @if (count < 3 && item.Id != Model.Id)
+                    {
+                        var modelTitleArr = Model.Title.Split(' ');
+                        var itemTitleArr = item.Title.Split(' ');
+
+                        @for (int i = 0; i < itemTitleArr.Length; i++)
+                        {
+                            @for (int j = 0; j < modelTitleArr.Length; j++)
+                            {
+                                @if (count < 3 && itemTitleArr[i].Length > 2 && itemTitleArr[i] == modelTitleArr[j])
+                                {
+                                    <tr>
+                                        <td class="table-cell">@item.Title</td>
+                                        <td class="table-cell">@item.Description</td>
+                                        <td class="table-cell">@item.AddDate</td>
+                                    </tr>
+                                    i = itemTitleArr.Length;
+                                    count++;
+                                    break;
+                                }
+                            }
+                        }
+
+                        var modelDescriptionArr = Model.Description.Split(' ');
+                        var itemDescriptioneArr = item.Description.Split(' ');
+
+                        @for (int i = 0; i < itemDescriptioneArr.Length; i++)
+                        {
+                            @for (int j = 0; j < modelDescriptionArr.Length; j++)
+                            {
+                                @if (count < 3 && itemDescriptioneArr[i].Length > 2 && itemDescriptioneArr[i] == modelDescriptionArr[j])
+                                {
+                                    <tr>
+                                        <td class="table-cell">@item.Title</td>
+                                        <td class="table-cell">@item.Description</td>
+                                        <td class="table-cell">@item.AddDate</td>
+                                    </tr>
+                                    i = itemDescriptioneArr.Length;
+                                    count++;
+                                    break;
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+
+        </tbody>
+
+
+    </table>
+</section>

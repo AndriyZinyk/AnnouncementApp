@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Edit announcement";
+}
+
+@model Announcement
+
+<section class="content-section">
+    <form method="post" asp-controller="Home" asp-action="Edit">
+
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="AddDate" />
+        <input type="hidden" asp-for="EditDate" />
+
+        <div class="add-title">
+            <h5>Title</h5>
+            <input class="add-title-input" asp-for="Title" />
+        </div>
+
+        <div class="add-decsr">
+            <h5>Description</h5>
+            <input class="add-decsr-input" asp-for="Description" />
+        </div>
+
+        <div class="action-confirm">
+            <h5>Save changes?</h5>
+            <button class="confirm-button" type="submit">Yes</button>
+            <a asp-controller="Home" asp-action="Main">No</a>
+        </div>
+
+    </form>
+</section>
